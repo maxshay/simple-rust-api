@@ -1,18 +1,12 @@
-use actix_web::{get, web, App, HttpServer, Responder};
+mod api;
 
-#[get("/")]
-async fn index() -> impl Responder {
-    "Hello, World!"
-}
+use api::fib::{compute_fib, index};
 
-#[get("/{name}")]
-async fn hello(name: web::Path<String>) -> impl Responder {
-    format!("Hello {}!", &name)
-}
+use actix_web::{App, HttpServer};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(index).service(hello))
+    HttpServer::new(|| App::new().service(index).service(compute_fib))
         .bind(("127.0.0.1", 8080))?
         .run()
         .await
