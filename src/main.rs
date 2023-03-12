@@ -6,8 +6,9 @@ use actix_web::{App, HttpServer};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    let port = std::env::var("SERVER_PORT").expect("SERVER_PORT must be set");
     HttpServer::new(|| App::new().service(index).service(compute_fib))
-        .bind(("127.0.0.1", 8080))?
+        .bind(("127.0.0.1", port.parse::<u16>().unwrap()))?
         .run()
         .await
 }

@@ -3,8 +3,11 @@ on:
     push:
         branches: [master]
 
+env:
+    SERVER_PORT: 8000
+
 jobs:
-    job_one:
+    build:
         name: Deploy
         runs-on: ubuntu-latest
         steps:
@@ -19,3 +22,4 @@ jobs:
                       cd /home/norman/app/simple-rust-api
                       git pull origin master
                       git status
+                      cargo build --package simple-api --release
