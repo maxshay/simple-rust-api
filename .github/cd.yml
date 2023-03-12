@@ -1,0 +1,21 @@
+name: deployment workflow
+on:
+    push:
+        branches: [master]
+
+jobs:
+    job_one:
+        name: Deploy
+        runs-on: ubuntu-latest
+        steps:
+            - name: testing server ssh connection
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.SERVER_HOST }}
+                  username: ${{ secrets.SERVER_USER }}
+                  key: ${{ secrets.SERVER_KEY }}
+                  port: ${{ secrets.SERVER_PORT }}
+                  script: |
+                      cd /home/norman/app/simple-rust-api
+                      git pull origin master
+                      git status
