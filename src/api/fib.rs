@@ -57,7 +57,7 @@ pub async fn compute_fib(n: Path<usize>) -> Result<impl Responder, MyError> {
         result = fibonacci(*n, &mut memo);
         obj = FibRes {
             r#type: "exact".to_string(),
-            result: result,
+            result,
         };
     }
 
